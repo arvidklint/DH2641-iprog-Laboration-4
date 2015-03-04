@@ -1,0 +1,222 @@
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
+h3 {
+	font-size: 24pt;
+	text-transform: uppercase;
+	padding-top: 10pt;
+	padding-bottom: 6pt;
+}
+
+h4 {
+	font-size: 18pt;
+	text-transform: uppercase;
+	padding-top: 24pt;
+	padding-bottom: 6pt;
+}
+
+#application {
+	font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+	height: 100%;
+}
+
+#header {
+	border: solid 2px;
+	background-color: rgba(200, 200, 200, 0.75);
+	padding: 10px;
+	padding-bottom: 20px;
+}
+
+.title {
+	font-size: 32pt;
+	margin-right: 10px;
+	text-transform: uppercase;
+}
+
+.subtitle {
+	font-size: 12pt;
+	font-style: italic;
+}
+
+#welcome-box {
+	background-color: rgba(255, 255, 255, 0.75);
+	width: 500px;
+	height: 270px;
+	position: absolute;
+	top: 200px;
+	left: 0px;
+	padding-left: 25px;
+}
+
+#welcome-title {
+	font-size: 18px;
+	border-bottom: solid 1px;
+	text-transform: capitalize;
+	color: black;
+	font-size: 24px;
+}
+
+#welcome-text {
+	color: black;
+	margin-bottom: 50px;
+	font-size: 12px;
+}
+
+#create-new-dinner-button-descr {
+	font-size: 14px;
+	text-transform: lowercase;
+}
+
+.btn {
+	background-color: orange;
+	border: solid 1px black;
+	box-shadow: 1px 1px 2px;
+	padding: 3px;
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 30px;
+}
+
+#myDinner {
+	border: solid 2px black;
+	border-top: none;
+	height: 750px;
+}
+
+#main {
+	border: solid 2px black;
+	border-top: none;
+	border-left: none;
+	height: 750px;
+}
+
+#selectDish {
+	background-color: orange;
+}
+
+#chooser {
+	background-color: gray;
+}
+
+.border {
+	border: solid 1px black;
+}
+
+.border-top {
+	border-top: solid 1px black;
+}
+
+.border-bottom {
+	border-bottom: solid 1px black;
+}
+
+.border-right {
+	border-right: solid 1px black;
+}
+
+.border-left {
+	border-left: solid 1px black;
+}
+
+.tableSidebar {
+	width: 100%;
+}
+
+.textAlignRight {
+	text-align: right;
+}
+
+.textAlignCenter {
+	text-align: center;
+}
+
+.horizontalLine {
+	padding-left: 0px;
+	margin-left: 0px;
+	border: solid 1px black;
+}
+
+.borderTop {
+	border-top: solid 1px black;
+}
+
+.sidebarTableTitle {
+	border-bottom: solid 1px black;
+	border-top: solid 1px black;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	background: #D6D6D6;
+}
+
+.center {
+	text-align: center;
+}
+
+#confirmDinnerButton {
+	width: 80%;
+}
+
+td {
+	padding: 15px;
+}
+
+.myDinnerSummaryFrame {
+	background-color: #FEE387;
+	border: 2px solid black;
+	border-top: none;
+	padding: 20px;
+}
+
+#myDinnerSummary {
+	font-size: 18px;
+}
+
+#myDinnerSummaryBackButtonFrame {
+	text-align: right;
+}
+
+.dishThumbFrame {
+/*	border: 1px solid gray;*/
+	width: 170px;
+	height: 170px;
+	text-align: center;
+	display: table-cell;
+	vertical-align: bottom;
+	background: #EDEDED;
+}
+
+.dishTitle {
+/*	border-top: 1px solid gray;*/
+	padding: 3px;
+	width: 100%;
+	background: #D6D6D6;
+}
+
+#dishname {
+	background: #D6D6D6;
+}
+
+td {
+	padding: 5px;
+}
+
+.removeButton {
+	background: none;
+	border: none;
+	color: #6B0000;
+}
+
+.dishObjectFrame {
+	cursor: pointer;
+}
+
+#searchResults {
+	margin-left: 20px;
+}

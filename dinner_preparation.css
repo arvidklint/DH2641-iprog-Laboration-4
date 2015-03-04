@@ -1,0 +1,11 @@
+.dinnerPrepThumbnail {
+	margin-left: 50px;
+	margin-top: 36px;
+	border: solid 2px black;
+}
+
+#prepFrame {
+	border-right: solid black 2px;
+	border-left: solid black 2px;
+	border-bottom: solid black 2px;
+}
