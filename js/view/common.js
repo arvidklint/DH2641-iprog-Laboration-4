@@ -24,10 +24,10 @@ function dishThumb(dish) {
 	// Tar emot en dish. Returnerar en standardutformad ram med thumbnail och titel. 
 	dishThumbStr = '<div class="dishThumbFrame">';
 		dishThumbStr += '<div>';
-			dishThumbStr += '<img src="images/' + dish["image"] + '" class="dishThumb"/>';
+			dishThumbStr += '<img src="' + dish["ImageURL120"] + '" class="dishThumb" width="170" height="150"/>';
 		dishThumbStr += '</div>';
 		dishThumbStr += '<div class="dishTitle">';
-			dishThumbStr += dish["name"];
+			dishThumbStr += shortenDescription(dish["Title"], 40);
 		dishThumbStr += '</div>';
 	dishThumbStr += '</div>';
 
@@ -39,4 +39,13 @@ function meinFrame(container, model) {
 	appString += '</div>';
 
 	container.append(appString);
+}
+
+function shortenDescription(description, maxLength) {
+	// Tar emot en beskrivning av en maträtt. Förkortar den till den maximalt tillåtna längden på valsidan.
+	if (description.length > maxLength) {
+		return description.substr(0,maxLength) + "…";
+	} else {
+		return description;
+	}
 }

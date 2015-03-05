@@ -13,9 +13,9 @@ var SelectDish = function(container, model, dishType) {
 				appString += '<button class="btn" id="cancelSearch">X</button>';
 				appString += '<button class="btn" id="searchButton">Search</button>';
 				appString += '<select id="types">';
-					appString += 	'<option value="starter">Starter</option>' + 
-									'<option value="main dish">Main</option>' + 
-									'<option value="dessert">Dessert</option>';
+					appString += 	'<option value="Appetizers">Starter</option>' + 
+									'<option value="Main Dish">Main</option>' + 
+									'<option value="Desserts">Dessert</option>';
 				appString += '</select>';
 				appString += '<span id="searchResults"></span>';
 			appString += '</div>';
@@ -24,31 +24,32 @@ var SelectDish = function(container, model, dishType) {
 		container.append(appString);
 	}
 
-	this.dishList = function(container, model, selectedType, filter) {
+	this.dishList = function(container, model, dishes) {
 		container.empty();
 
-		dishListStr = '';
-		this.foundDishes = model.getAllDishes(selectedType, filter);
-		for (i = 0; i < this.foundDishes.length; i++) {
-			dishListStr += '<div class="col-md-3 col-sm-4 col-xs-6 dishObjectFrame" id="' + this.foundDishes[i]["id"] + '">';
-				dishListStr += dishThumb(this.foundDishes[i]);
-				dishListStr += '<div class="dishDescription">';
-					dishListStr += shortenDescription(this.foundDishes[i]["description"]);
-				dishListStr += '</div>';
-			dishListStr += '</div>';
-		}
+		if (dishes != null) {
+			dishListStr = '';
+			// this.foundDishes = model.getAllDishes(selectedType, filter);
+			foundDishes = dishes["Results"];
+			// dishType = this.types.val();
 
-		container.append(dishListStr);
+			for (i = 0; i < foundDishes.length; i++) {
+				// if (foundDishes[i]["Category"] == dishType) {
+					dishListStr += '<div class="col-md-3 col-sm-4 col-xs-6 dishObjectFrame" id="' + foundDishes[i]["RecipeID"] + '">';
+						dishListStr += dishThumb(foundDishes[i]);
+						dishListStr += '<div class="dishDescription">';
+							// dishListStr += shortenDescription(foundDishes[i]["description"]);
+							dishListStr += shortenDescription("Lorem impsum dolor amet .asdf aosdj flaksjdf laksjdf lkasjd flkasjd flkajs dlfkjasdlkfjlaskd jfljk ads", 200);
+						dishListStr += '</div>';
+					dishListStr += '</div>';
+				// }
+			}
+
+			container.append(dishListStr);
+			searchResults.html("Found dishes: " + dishes["ResultCount"]);
+		}
+		
 		model.setPendingPrice(0);
-	}
-
-	this.shortenDescription = function(description) {
-		// Tar emot en beskrivning av en maträtt. Förkortar den till den maximalt tillåtna längden på valsidan.
-		if (description.length > 200) {
-			return description.substr(0,200) + "…";
-		} else {
-			return description;
-		}
 	}
 
 	this.declareWidgets = function(container) {
@@ -66,13 +67,20 @@ var SelectDish = function(container, model, dishType) {
 	dishChooser($('#dishChooser'), dishType);
 
 	container.append('<div class="row" id="dishList"></div>');
-	dishList($('#dishList'), model, dishType);
+	//dishList($('#dishList'), model, dishType);
 
 	declareWidgets(container);
 
-	controller = new SelectDishController(this, model);
+	this.controller = new SelectDishController(this, model);
+	model.addObserver(this);
+	model.getAllDishes(this.types.val(), '');
 
-	
+	this.update = function(model, arg) {
+		if (arg != null && arg["description"] == "dishes") {
+			this.dishList(this.dishListContainer, model, arg["data"]);
+			this.controller.dishLinks(this);
+		}
+	}
 }
 
 // var DishChooser = function(container) {
