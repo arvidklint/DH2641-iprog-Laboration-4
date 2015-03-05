@@ -19,6 +19,7 @@ var MyDinnerController = function(view, model) {
 	view.numberOfGuestsInput.change(function() {
 		//alert(view.numberOfGuestsInput[0].value);
 		model.setNumberOfGuests(view.numberOfGuestsInput.val());
+		
 	});
 
 	removeButtonLinks(view, model);

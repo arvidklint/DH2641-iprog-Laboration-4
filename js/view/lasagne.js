@@ -26,7 +26,7 @@ var LasagneView = function(container, model, dishID) {
 		container.find("#dishFrame").append(appString);
 	}
 
-	this.dishFrame = function(container) {
+	this.showDishFrame = function(container) {
 		appString = '<div class="col-xs-6">';
 		appString += '<div id="dishFrame">';
 		appString += '</div>';
@@ -41,8 +41,10 @@ var LasagneView = function(container, model, dishID) {
 	this.showIngredientsFrame = function(container) {
 		appString = '<div class="col-xs-6" id="ingredientsFrame">';
 			appString += '<h4 id="ingredientsTitle">';
+				appString += 'Loading...';
 			appString += '</h4>';
 			appString += '<table id="ingredientsTable">';
+				appString += '<tr><td>Loading...</td></tr>';
 			appString += '</table>';
 			appString += '<table width="100%">';
 				appString += '<tr>';
@@ -88,6 +90,7 @@ var LasagneView = function(container, model, dishID) {
 		this.backButton = container.find("#backButton");
 		this.confirmDishButton = container.find('#confirmDishButton');
 		this.ingredientsFrame = container.find('#ingredientsFrame');
+		this.dishFrame = container.find('#dishFrame');
 		this.lasagneRow = this.container.find('#lasagneRow');
 
 	}
@@ -98,7 +101,6 @@ var LasagneView = function(container, model, dishID) {
 		}
 
 		if (args["description"] == "dish") {
-			console.log(args);
 			this.dish = args["data"];
 			this.showDish(this.lasagneRow, model, this.dish);
 			this.showIngredients(this.lasagneRow, model, this.dish);
@@ -107,6 +109,14 @@ var LasagneView = function(container, model, dishID) {
 		} else if (args["description"] == "numberOfGuests" && this.dish != null) {
 			this.showDish(this.lasagneRow, model, this.dish);
 			this.showIngredients(this.lasagneRow, model, this.dish);
+		} else if (args["description"] == "networkError") {
+			this.dishFrame.empty();
+			this.ingredientsFrame.remove();
+				errorString = '<div id="networkError">';
+				errorString += 'A network error occurred. Please check your internet connection. <br/><br/>';
+				errorString += 'Status: ' + args["data"][1] + '<br/>';
+			errorString += '</div>';
+			this.dishFrame.append(errorString);
 		}
 	}
 
@@ -117,9 +127,11 @@ var LasagneView = function(container, model, dishID) {
 	//declareWidgets(container);
 
 	//model.setPendingPrice(model.getDishPrice(dishID) * model.getNumberOfGuests());
-	this.dishFrame(this.container.find('#lasagneRow'));
+	this.showDishFrame(this.container.find('#lasagneRow'));
 	this.showIngredientsFrame(this.container.find("#lasagneRow"));
 	this.declareWidgets(container);
+
+	this.dishFrame.append("Loading...");
 
 	model.addObserver(this);
 	model.getDish(this.dishID);

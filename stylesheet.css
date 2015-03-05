@@ -221,3 +221,8 @@ td {
 #searchResults {
 	margin-left: 20px;
 }
+
+#networkError {
+	color: red;
+	margin-left: 20px;
+}

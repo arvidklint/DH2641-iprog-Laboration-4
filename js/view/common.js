@@ -27,7 +27,7 @@ function dishThumb(dish) {
 			dishThumbStr += '<img src="' + dish["ImageURL"] + '" class="dishThumb" width="170" height="150"/>';
 		dishThumbStr += '</div>';
 		dishThumbStr += '<div class="dishTitle">';
-			dishThumbStr += shortenDescription(dish["Title"], 40);
+			dishThumbStr += shortenDescription(dish["Title"], 38);
 		dishThumbStr += '</div>';
 	dishThumbStr += '</div>';
 

@@ -1,13 +1,12 @@
 var MyDinner = function(container, model) {
 	this.viewName = "myDinner";
-	//console.log("Meddelande från the lord: " + randomParam);
 
 	this.viewID = "My Dinner ID: " + Math.random();
 
 	this.myDinnerContents = function(container, model) {
 		appString = 'My Dinner';
 		appString += '<div>';
-			appString += '<input type="number" value="' + model.getNumberOfGuests() + '" id="numberOfGuests"/>';
+			appString += '<input type="number" value="' + model.getNumberOfGuests() + '" id="numberOfGuests" min="1"/>';
 		appString += '</div>';
 		appString += '<div class="row">';
 			appString += '<div class="col-xs-12 sidebarTableTitle"">';
@@ -50,9 +49,6 @@ var MyDinner = function(container, model) {
 	}
 
 	this.update = function(model, args) {
-		//console.log("My Dinner ID: " + this.viewID);
-		//console.log("My dinner update, viewID: " + this.viewID);
-		console.log("my dinner update args: " + args);
 		this.myDinnerContainer.empty();
 		this.myDinnerContents(this.myDinnerContainer, model);
 		// this.confirmDinnerButton = $('#confirmDinnerButton'); //Vi måste omdeklarera knappen eftersom den tillfälligtvis var borta. Det fungerade inte att bara köra declareWidgets igen av någon anledning.
@@ -75,6 +71,4 @@ var MyDinner = function(container, model) {
 	this.update(model);
 	model.addObserver(this);
 
-	// this.controller = new MyDinnerController(this, model);
-	console.log("My Dinner: Nu har jag lagt till mig själv i model._observers");
 }

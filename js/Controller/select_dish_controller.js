@@ -16,6 +16,7 @@ var SelectDishController = function(view, model) {
 	}
 
 	function loadDishList() {
+		view.loading();
 		view.searchResults.empty();
 		model.getAllDishes(view.types.val(), view.searchBox.val());
 	}
@@ -28,6 +29,7 @@ var SelectDishController = function(view, model) {
 			model.getAllDishes(dishType, filter);
 			// view.dishListContainer.empty();
 			// view.dishList(view.dishListContainer, model, dishType, filter);
+			view.loading();
 			view.cancelSearchButton.show();
 		}
 	});

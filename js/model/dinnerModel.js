@@ -35,9 +35,11 @@ var DinnerModel = function() {
 	}
 
 	this.setNumberOfGuests = function(num) {
-		this.numberOfGuests = num;
-		notifyObject = {"description" : "numberOfGuests"}
-		this.notifyObservers(notifyObject);
+		if (num >= 1) {
+			this.numberOfGuests = num;
+			notifyObject = {"description" : "numberOfGuests"}
+			this.notifyObservers(notifyObject);
+		}
 	}
 
 	// should return 
@@ -125,7 +127,7 @@ var DinnerModel = function() {
 	//if you don't pass any filter all the dishes will be returned
 	this.getAllDishes = function (type, filter) {
 		var apiKey = "dvx9EUS7d1Pr8xN1Hua1iC9Qc9zn1niL";
-		var url = "http://api.bigoven.com/recipes?api_key=" + apiKey + "&pg=1&rpp=10" + "&any_kw=" + type + " " + filter;
+		var url = "http://api.bigoven.com/recipes?api_key=" + apiKey + "&pg=1&rpp=20" + "&any_kw=" + type + " " + filter;
 		model = this;
 		$.ajax({
 			type: "GET",
@@ -138,7 +140,7 @@ var DinnerModel = function() {
 				model.notifyObservers(eventObject);
 			},
 			error: function(xhr, status, error) {
-				console.log(eventObject);
+				model.networkError(xhr, status, error);
 			}
 		});
 	}
@@ -164,9 +166,14 @@ var DinnerModel = function() {
 				model.notifyObservers(eventObject);
 			},
 			error: function(xhr, status, error) {
-				console.log(error);
+				model.networkError(xhr, status, error);
 			}
 		});
+	}
+
+	this.networkError = function(xhr, status, error) {
+		eventObject = {"description" : "networkError", "data": [xhr, status, error]};
+		this.notifyObservers(eventObject);
 	}
 
 

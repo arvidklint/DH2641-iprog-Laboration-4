@@ -70,16 +70,31 @@ var SelectDish = function(container, model, dishType) {
 		if (arg != null && arg["description"] == "dishes") {
 			this.dishList(this.dishListContainer, model, arg["data"]);
 			this.controller.dishLinks(this);
+		} else if (arg != null && arg["description"] == "networkError") {
+			this.dishListContainer.empty();
+			errorString = '<div id="networkError">';
+				errorString += 'A network error occurred. Please check your internet connection. <br/><br/>';
+				errorString += 'Status: ' + arg["data"][1] + '<br/>';
+			errorString += '</div>';
+			this.dishListContainer.append(errorString);
 		}
+	}
+
+	this.loading = function() {
+		this.dishListContainer.empty();
+		this.dishListContainer.append('<div class="loading"><img src="images/loading.gif"/></div>');
 	}
 
 	container.append('<div class="row" id="dishChooser"></div>');
 	this.dishChooser($('#dishChooser'), dishType);
 
 	container.append('<div class="row" id="dishList"></div>');
+
 	//dishList($('#dishList'), model, dishType);
 
 	this.declareWidgets(container);
+
+	this.loading();
 
 	this.controller = new SelectDishController(this, model);
 	model.addObserver(this);
