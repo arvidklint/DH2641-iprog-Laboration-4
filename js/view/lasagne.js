@@ -1,14 +1,17 @@
 var LasagneView = function(container, model, dishID) {
 	this.dishID = dishID;
 	this.container = container;
+
+	this.viewID = "Lasagne ID: " + Math.random();
+
 	
-	var getPendingPrice = function(model) {
+	this.getPendingPrice = function(model) {
 		dish = model.getSelectedDish("main dish");
 		pendingPrice = model.getDishPrice(dish["id"]) * model.getNumberOfGuests();
 		return pendingPrice;
 	}
 
-	var showDish = function(container, model, dinner) {
+	this.showDish = function(container, model, dinner) {
 		//var dinner = model.getDish(this.dishID);
 		container.find("#dishFrame").empty();
 		
@@ -23,7 +26,7 @@ var LasagneView = function(container, model, dishID) {
 		container.find("#dishFrame").append(appString);
 	}
 
-	var dishFrame = function(container) {
+	this.dishFrame = function(container) {
 		appString = '<div class="col-xs-6">';
 		appString += '<div id="dishFrame">';
 		appString += '</div>';
@@ -35,7 +38,7 @@ var LasagneView = function(container, model, dishID) {
 		container.append(appString);
 	}
 
-	var showIngredientsFrame = function(container) {
+	this.showIngredientsFrame = function(container) {
 		appString = '<div class="col-xs-6" id="ingredientsFrame">';
 			appString += '<h4 id="ingredientsTitle">';
 			appString += '</h4>';
@@ -55,7 +58,7 @@ var LasagneView = function(container, model, dishID) {
 		container.append(appString);
 	}
 
-	var showIngredients = function(container, model, dinner) {
+	this.showIngredients = function(container, model, dinner) {
 		//var dinner = model.getDish(this.dishID);
 		container.find("#totalPrice").empty();
 		container.find("#ingredientsTable").empty();
@@ -80,23 +83,30 @@ var LasagneView = function(container, model, dishID) {
 
 	}
 
-	var declareWidgets = function(container) {
+	this.declareWidgets = function(container) {
 		this.container = container;
-		this.backButton = $('#backButton');
-		this.confirmDishButton = $('#confirmDishButton');
+		this.backButton = container.find("#backButton");
+		this.confirmDishButton = container.find('#confirmDishButton');
 		this.ingredientsFrame = container.find('#ingredientsFrame');
+		this.lasagneRow = this.container.find('#lasagneRow');
+
 	}
 
 	this.update = function(model, args) {
+		if (args == null) {
+			return;
+		}
+
 		if (args["description"] == "dish") {
 			console.log(args);
-			lasagneRow = this.container.find('#lasagneRow');
 			this.dish = args["data"];
-			showDish(lasagneRow, model, this.dish);
-			showIngredients(lasagneRow, model, this.dish);
+			this.showDish(this.lasagneRow, model, this.dish);
+			this.showIngredients(this.lasagneRow, model, this.dish);
+			this.dish = args["data"];
+			model.setPendingPrice(model.getDishPrice(this.dish) * model.getNumberOfGuests());
 		} else if (args["description"] == "numberOfGuests" && this.dish != null) {
-			showDish(lasagneRow, model, this.dish);
-			showIngredients(lasagneRow, model, this.dish);
+			this.showDish(this.lasagneRow, model, this.dish);
+			this.showIngredients(this.lasagneRow, model, this.dish);
 		}
 	}
 
@@ -107,11 +117,11 @@ var LasagneView = function(container, model, dishID) {
 	//declareWidgets(container);
 
 	//model.setPendingPrice(model.getDishPrice(dishID) * model.getNumberOfGuests());
-	dishFrame(this.container.find('#lasagneRow'));
-	showIngredientsFrame(this.container.find("#lasagneRow"));
-	declareWidgets(this.container);
+	this.dishFrame(this.container.find('#lasagneRow'));
+	this.showIngredientsFrame(this.container.find("#lasagneRow"));
+	this.declareWidgets(container);
 
 	model.addObserver(this);
 	model.getDish(this.dishID);
-	LasagneController(this, model);
+	this.lasagneControllerInstance = new LasagneController(this, model);
 }

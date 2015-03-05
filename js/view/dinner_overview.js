@@ -12,12 +12,12 @@ var DinnerOverview = function(container, model) {
 					// model.addDishToMenu(100);
 					// model.addDishToMenu(200);
 					fullMenu = model.getFullMenu();
-					for (key in fullMenu) {
+					for (var key = 0; key < fullMenu.length; key++) {
 						appString += '<div class="col-sm-3 col-xs-4 col-centered dinnerOverviewObject">';
 							appString += dishThumb(fullMenu[key]);
 							appString += '<div class="priceFrame">';
 								appString += '<span class="priceAtBottom">';
-									appString += (model.getDishPrice(fullMenu[key]["id"]) * model.getNumberOfGuests()).toFixed(2) + " SEK";
+									appString += (model.getDishPrice(fullMenu[key]) * model.getNumberOfGuests()).toFixed(2) + " SEK";
 								appString += '</span>';
 							appString += '</div>';
 						appString += '</div>';

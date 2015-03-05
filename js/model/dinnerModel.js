@@ -54,9 +54,10 @@ var DinnerModel = function() {
 	this.getFullMenu = function() {
 		fullMenu = [];
 
-		for (var i in this.menu) {
-			fullMenu.push(this.getDish(this.menu[i]));
+		for (var key in this.menu) {
+			fullMenu.push(this.menu[key]);
 		}
+
 		return fullMenu;
 	}
 
@@ -69,9 +70,9 @@ var DinnerModel = function() {
 		}
 
 		for (var key in this.menu) {
-			dish = this.getDish(this.menu[key]);
-			for (var j in dish.ingredients) {
-				ingredients.push(dish.ingredients[j]);
+			dish = this.menu[key];
+			for (var j in dish["Ingredients"]) {
+				ingredients.push(dish["Ingredients"][j]);
 			}
 		}
 
@@ -83,7 +84,7 @@ var DinnerModel = function() {
 		ingredients = this.getAllIngredients();
 		var price = 0;
 		for (var i in ingredients) {
-			price += ingredients[i]["price"];
+			price += ingredients[i]["Quantity"];
 		}
 		return price;
 	}
@@ -102,16 +103,17 @@ var DinnerModel = function() {
 
 	//Adds the passed dish to the menu. If the dish of that type already exists on the menu
 	//it is removed from the menu and the new one added.
-	this.addDishToMenu = function(id) {
-		dish = this.getDish(id);
-		this.menu[dish["type"]] = id;
-		this.notifyObservers();
+	this.addDishToMenu = function(dish) {
+		// dish = this.getDish(id);
+		this.menu.push(dish);
+		notifyObject = {"description" : "newMenuDish"};
+		this.notifyObservers(notifyObject);
 	}
 
 	//Removes dish from menu
 	this.removeDishFromMenu = function(id) {
 		for (var key in this.menu) {
-			if (this.menu[key] == id) {
+			if (this.menu[key]["RecipeID"] == id) {
 				delete this.menu[key];
 			}
 		}
@@ -131,8 +133,6 @@ var DinnerModel = function() {
 			cache: false,
 			url: url,
 			success: function (data) {
-				alert("Success");
-				console.log(data);
 				// this.notifyObservers(data);
 				eventObject = {"description" : "dishes", "data": data};
 				model.notifyObservers(eventObject);
@@ -159,9 +159,7 @@ var DinnerModel = function() {
 			cache: false,
 			url: url,
 			success: function (data) {
-				alert("Success");
 				eventObject = {"description": "dish", "data" : data};
-				console.log(eventObject);
 				// this.notifyObservers(data);
 				model.notifyObservers(eventObject);
 			},

@@ -1,6 +1,9 @@
 var SelectDish = function(container, model, dishType) {
 	dishType = dishType || "starter";
 
+	this.viewID = "Select_Dish ID: " + Math.random();
+
+
 	this.dishChooser = function(container, dishType) {
 		appString = '<div class="row">';
 			appString += '<div class="col-xs-12" id="dishChooserHeadline">';
@@ -46,7 +49,7 @@ var SelectDish = function(container, model, dishType) {
 			}
 
 			container.append(dishListStr);
-			searchResults.html("Found dishes: " + dishes["ResultCount"]);
+			this.searchResults.html("Found dishes: " + dishes["ResultCount"]);
 		}
 		
 		model.setPendingPrice(0);
@@ -63,24 +66,25 @@ var SelectDish = function(container, model, dishType) {
 		this.searchResults = container.find('#searchResults');
 	}
 
-	container.append('<div class="row" id="dishChooser"></div>');
-	dishChooser($('#dishChooser'), dishType);
-
-	container.append('<div class="row" id="dishList"></div>');
-	//dishList($('#dishList'), model, dishType);
-
-	declareWidgets(container);
-
-	this.controller = new SelectDishController(this, model);
-	model.addObserver(this);
-	model.getAllDishes(this.types.val(), '');
-
 	this.update = function(model, arg) {
 		if (arg != null && arg["description"] == "dishes") {
 			this.dishList(this.dishListContainer, model, arg["data"]);
 			this.controller.dishLinks(this);
 		}
 	}
+
+	container.append('<div class="row" id="dishChooser"></div>');
+	this.dishChooser($('#dishChooser'), dishType);
+
+	container.append('<div class="row" id="dishList"></div>');
+	//dishList($('#dishList'), model, dishType);
+
+	this.declareWidgets(container);
+
+	this.controller = new SelectDishController(this, model);
+	model.addObserver(this);
+	model.getAllDishes(this.types.val(), '');
+
 }
 
 // var DishChooser = function(container) {

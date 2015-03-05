@@ -24,7 +24,7 @@ function dishThumb(dish) {
 	// Tar emot en dish. Returnerar en standardutformad ram med thumbnail och titel. 
 	dishThumbStr = '<div class="dishThumbFrame">';
 		dishThumbStr += '<div>';
-			dishThumbStr += '<img src="' + dish["ImageURL120"] + '" class="dishThumb" width="170" height="150"/>';
+			dishThumbStr += '<img src="' + dish["ImageURL"] + '" class="dishThumb" width="170" height="150"/>';
 		dishThumbStr += '</div>';
 		dishThumbStr += '<div class="dishTitle">';
 			dishThumbStr += shortenDescription(dish["Title"], 40);

@@ -6,7 +6,7 @@ var SelectDishController = function(view, model) {
 			$(this).click(function() {
 				id = $(this).attr("id");
 				view.container.empty();
-				LasagneView(view.container, model, id);
+				lasagneViewInstance = new LasagneView(view.container, model, id);
 			});
 		});
 	}
